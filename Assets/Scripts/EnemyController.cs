@@ -46,7 +46,10 @@ public class EnemyController : MonoBehaviour
         if (enemyDistance > 1.2f)
         {
             speed = 1f;
-            rigidbody.AddForce(direction, ForceMode.VelocityChange);  
+            Debug.Log("direction :" + direction.ToString());
+            transform.Translate(direction * speed * Time.deltaTime, Space.World);
+//            rigidbody.AddForce(direction * 10, ForceMode.Acceleration);
+//            rigidbody.velocity = direction * speed;
         }
         else
         {
