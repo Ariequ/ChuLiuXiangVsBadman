@@ -5,3 +5,6 @@ Library/*
 Temp/*
 
 Assembly*
+*.sln
+
+*.userprefs
