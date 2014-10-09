@@ -5,71 +5,89 @@ public class PlayerAttack : MonoBehaviour
 {
     public float timeBetweenAttacks = 2f;
     public int attackDamage = 10;
-
-
     Animator anim;
-    GameObject player;
     PlayerHealth playerHealth;
-    //EnemyHealth enemyHealth;
-    bool playerInRange;
     float timer;
-
+	private float lastAttackTime;
+	private int currentAttackType;
+	private bool lastStateIsAttack;
+	private bool firstInIdleOrMove = true;
+	private Queue inputQueue;
 
     void Awake ()
     {
-        player = GameObject.FindGameObjectWithTag ("Player");
-        playerHealth = player.GetComponent <PlayerHealth> ();
-        //enemyHealth = GetComponent<EnemyHealth>();
+        playerHealth = GetComponent <PlayerHealth> ();
         anim = GetComponent <Animator> ();
+		inputQueue = new Queue();
     }
-
-
-    void OnTriggerEnter (Collider other)
-    {
-        if(other.gameObject == player)
-        {
-            playerInRange = true;
-        }
-    }
-
-
-    void OnTriggerExit (Collider other)
-    {
-        if(other.gameObject == player)
-        {
-            playerInRange = false;
-        }
-    }
-
 
     void Update ()
     {
         timer += Time.deltaTime;
 
-        if (timer >= timeBetweenAttacks && playerInRange/* && enemyHealth.currentHealth > 0*/)
-        {
-            anim.SetBool("PlayerInRange", playerInRange);
-            Attack();
-        }
-        else
-        {
-            anim.SetBool("PlayerInRange", false);
-        }
-
-        if(playerHealth.currentHealth <= 0)
-        {
-            anim.SetTrigger ("PlayerDead");
-        }
+		checkAttack();
     }
 
+	private void checkAttack()
+	{
+		AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
+		AnimatorTransitionInfo transition = anim.GetAnimatorTransitionInfo(0);
+		bool inIdle = state.IsName("Idle");
+		bool inAttack = state.IsTag("Attack");
+		bool isAttackToIdle = transition.IsName("AttackToIdle");
 
-    void Attack ()
-    {
-        timer = 0f;
+		if ((isAttackToIdle || inAttack) && Input.GetKeyDown(KeyCode.J))
+		{   
+			inputQueue.Enqueue(1);
+		}
+		
+		if (inIdle)
+		{
+			inputQueue.Clear();
 
-        if(playerHealth.currentHealth > 0)
-        {
-            playerHealth.TakeDamage (attackDamage);
-        }
-    }
+			if (Input.GetKeyDown(KeyCode.J))
+			{   
+				anim.SetBool("HasAttackCommond", true);
+			}
+
+			anim.SetBool("Attacked", false);
+		}
+	}
+	
+	void OnTriggerStay(Collider other)
+	{
+		if (other.tag == "Enemy")
+		{
+			AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
+			bool attacking = state.IsTag("Attack");
+			
+			if (attacking)
+			{
+				EnemyHealth enemyHealth = other.GetComponent <EnemyHealth> ();
+				if(enemyHealth != null)
+				{
+					enemyHealth.TakeDamage (100, Vector3.zero);
+				}
+				
+			}
+		}
+	}
+
+	void OnAnimationComplete(int type)
+	{
+		if (type == 3)
+		{
+			inputQueue.Clear();
+		}
+
+		if (inputQueue.Count > 0)
+		{
+			inputQueue.Dequeue();
+			anim.SetBool("HasAttackCommond", true);
+		}
+		else
+		{
+			anim.SetBool("HasAttackCommond", false);
+		}
+	}
 }

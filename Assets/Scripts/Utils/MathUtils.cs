@@ -4,7 +4,14 @@ public class MathUtils
 {
 	public static Quaternion LookRotationXZ (Vector3 direction)
 	{
-		return Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+		if (direction != Vector3.zero)
+		{
+			return Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+		}
+		else
+		{
+			return Quaternion.Euler(Vector3.zero);
+		}
 	}
 
     public static float XZDistance(Vector3 from, Vector3 to)
