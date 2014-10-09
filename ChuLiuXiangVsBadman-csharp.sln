@@ -1,8 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
-Project("{D2320B52-F5B4-CBA6-B785-7F4DD8501F3D}") = "ChuLiuXiangVsBadman", "Assembly-CSharp-firstpass-vs.csproj", "{8B55DD1A-C05B-4D8B-817E-FBAC1CECCE34}"
-EndProject
 Project("{D2320B52-F5B4-CBA6-B785-7F4DD8501F3D}") = "ChuLiuXiangVsBadman", "Assembly-CSharp-vs.csproj", "{EE9A490F-53D5-1AC1-702E-1DC3AC14A048}"
 EndProject
 Global
@@ -11,10 +9,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8B55DD1A-C05B-4D8B-817E-FBAC1CECCE34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B55DD1A-C05B-4D8B-817E-FBAC1CECCE34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B55DD1A-C05B-4D8B-817E-FBAC1CECCE34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B55DD1A-C05B-4D8B-817E-FBAC1CECCE34}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EE9A490F-53D5-1AC1-702E-1DC3AC14A048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EE9A490F-53D5-1AC1-702E-1DC3AC14A048}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE9A490F-53D5-1AC1-702E-1DC3AC14A048}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -23,7 +17,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-									GlobalSection(MonoDevelopProperties) = preSolution
+															GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
