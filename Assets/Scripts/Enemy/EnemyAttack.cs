@@ -52,6 +52,13 @@ public class EnemyAttack : MonoBehaviour
     {
         timer += Time.deltaTime;
 
+		AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
+
+		if (state.IsTag("Hurt"))
+		{
+			anim.SetInteger("HurtType", 0);
+		}
+
         if (timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0)
         {
             Attack();

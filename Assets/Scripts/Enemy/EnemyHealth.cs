@@ -3,7 +3,7 @@
 public class EnemyHealth : MonoBehaviour
 {
     public int startingHealth = 100;
-    public int currentHealth;
+    public int currentHealth = 100;
     public float sinkSpeed = 2.5f;
     public int scoreValue = 10;
     public AudioClip deathClip;
@@ -37,7 +37,7 @@ public class EnemyHealth : MonoBehaviour
     }
 
 
-    public void TakeDamage (int amount, Vector3 hitPoint)
+    public void TakeDamage (int amount, Vector3 hitPoint, int attackType)
     {
         if(isDead)
             return;
@@ -49,10 +49,14 @@ public class EnemyHealth : MonoBehaviour
 //        hitParticles.transform.position = hitPoint;
 //        hitParticles.Play();
 
-        if(currentHealth <= 0)
-        {
-            Death ();
-        }
+        if (currentHealth <= 0)
+		{
+			Death();
+		}
+		else
+		{
+			anim.SetInteger("HurtType", attackType);
+		}
     }
 
 
@@ -74,7 +78,7 @@ public class EnemyHealth : MonoBehaviour
         GetComponent <NavMeshAgent> ().enabled = false;
         GetComponent <Rigidbody> ().isKinematic = true;
         isSinking = true;
-        //ScoreManager.score += scoreValue;
+        ScoreManager.score += scoreValue;
         Destroy (gameObject, 2f);
     }
 }

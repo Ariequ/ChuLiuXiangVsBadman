@@ -20,25 +20,27 @@ public class PlayerMovement : MonoBehaviour
         m_SpeedId = Animator.StringToHash("Speed");     
     }
     
-    void FixedUpdate()
+    void Update()
     {
         AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
 
         if (animator && Camera.main)
         {   
-            JoystickToEvents.Do(transform, Camera.main.transform, ref speed, ref direction);
-
-//            bool inIdle = state.IsName("Idle");
-//            float speedDampTime = inIdle ? 0 : 0.1f;
-            
+            JoystickToEvents.Do(transform, Camera.main.transform, ref speed, ref direction);           
             animator.SetFloat(m_SpeedId, speed);//, 0.1f, Time.deltaTime);   
         }   
       
         if (state.IsName("Idle") || state.IsName("Move") && !state.IsTag("Attack"))
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, MathUtils.LookRotationXZ(direction), Time.deltaTime * 10); 
-            Move(direction.x, direction.z);
+			transform.rotation = Quaternion.Lerp(transform.rotation, MathUtils.LookRotationXZ(direction), Time.deltaTime * 10); 
+			Move(direction.x, direction.z);
         }
+
+		if (state.IsName("Idle"))
+		{
+			animator.SetBool("Attacked", false);
+			animator.SetInteger("HurtType", 0);
+		}
     }
 
     void Move (float h, float v)
@@ -50,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         movement = movement.normalized * speed * Time.deltaTime * 6;
         
         // Move the player to it's current position plus the movement.
-        playerRigidbody.MovePosition (transform.position + movement);
+//        playerRigidbody.MovePosition (transform.position + movement);
+		transform.Translate(movement,Space.World);
     }
 }
