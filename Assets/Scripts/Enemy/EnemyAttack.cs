@@ -28,7 +28,6 @@ public class EnemyAttack : MonoBehaviour
 
     void OnTriggerEnter (Collider other)
     {
-        Debug.Log("ontriggerenter====");
         if(other.gameObject == player)
         {
             playerInRange = true;
