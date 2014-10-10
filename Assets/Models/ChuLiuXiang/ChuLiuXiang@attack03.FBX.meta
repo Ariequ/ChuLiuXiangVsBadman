@@ -139,7 +139,7 @@ ModelImporter:
     - serializedVersion: 16
       name: attack03
       takeName: Take 001
-      firstFrame: 25
+      firstFrame: 26
       lastFrame: 52
       wrapMode: 2
       orientationOffsetY: 0
@@ -153,19 +153,12 @@ ModelImporter:
       loopBlendPositionXZ: 1
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: .960975587
-        functionName: OnAnimationComplete
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 3
-        messageOptions: 0
+      events: []
       transformMask:
       - path: 
         weight: 1

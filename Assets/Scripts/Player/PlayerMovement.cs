@@ -8,32 +8,35 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private float speed = 0;
     private Vector3 direction;
-    private Locomotion locomotion = null;
     private Vector3 movement;                   // The vector to store the direction of the player's movement.
     private Rigidbody playerRigidbody;          // Reference to the player's rigidbody.
+    private int m_SpeedId = 0;
     
     // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
-        locomotion = new Locomotion(animator);
         playerRigidbody = GetComponent <Rigidbody> ();
+        m_SpeedId = Animator.StringToHash("Speed");     
     }
     
     void FixedUpdate()
     {
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+
         if (animator && Camera.main)
-        {
+        {   
             JoystickToEvents.Do(transform, Camera.main.transform, ref speed, ref direction);
-            locomotion.Do(speed * 6, direction);
+
+//            bool inIdle = state.IsName("Idle");
+//            float speedDampTime = inIdle ? 0 : 0.1f;
+            
+            animator.SetFloat(m_SpeedId, speed);//, 0.1f, Time.deltaTime);   
         }   
       
-        transform.rotation = MathUtils.LookRotationXZ(direction);
-
-        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
-        if (state.IsName("Move"))
+        if (state.IsName("Idle") || state.IsName("Move") && !state.IsTag("Attack"))
         {
-//            transform.Translate(velocity, Space.World);
+            transform.rotation = Quaternion.Lerp(transform.rotation, MathUtils.LookRotationXZ(direction), Time.deltaTime * 10); 
             Move(direction.x, direction.z);
         }
     }
