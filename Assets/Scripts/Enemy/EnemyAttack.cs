@@ -10,25 +10,30 @@ public class EnemyAttack : MonoBehaviour
     Animator anim;
     GameObject player;
     PlayerHealth playerHealth;
-    //EnemyHealth enemyHealth;
+    EnemyHealth enemyHealth;
     bool playerInRange;
     float timer;
+    EnemyMovement enemyMovement;
 
 
     void Awake ()
     {
         player = GameObject.FindGameObjectWithTag ("Player");
         playerHealth = player.GetComponent <PlayerHealth> ();
-        //enemyHealth = GetComponent<EnemyHealth>();
+        enemyHealth = GetComponent<EnemyHealth>();
+        enemyMovement = GetComponent<EnemyMovement>();
         anim = GetComponent <Animator> ();
     }
 
 
     void OnTriggerEnter (Collider other)
     {
+        Debug.Log("ontriggerenter====");
         if(other.gameObject == player)
         {
             playerInRange = true;
+            enemyMovement.navEnabled = false;
+            anim.SetBool("PlayerInRange", true);
         }
     }
 
@@ -38,6 +43,8 @@ public class EnemyAttack : MonoBehaviour
         if(other.gameObject == player)
         {
             playerInRange = false;
+            enemyMovement.navEnabled = true;
+            anim.SetBool("PlayerInRange", false);
         }
     }
 
@@ -46,14 +53,14 @@ public class EnemyAttack : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer >= timeBetweenAttacks && playerInRange/* && enemyHealth.currentHealth > 0*/)
+        if (timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0)
         {
-            anim.SetBool("PlayerInRange", playerInRange);
             Attack();
+            anim.SetBool("Attacking", true);
         }
         else
         {
-            anim.SetBool("PlayerInRange", false);
+            anim.SetBool("Attacking", false);
         }
 
         if(playerHealth.currentHealth <= 0)
