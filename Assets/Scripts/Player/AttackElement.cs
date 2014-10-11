@@ -20,7 +20,8 @@ public class AttackElement : MonoBehaviour
 
         for (int i=0; i<attackNames.Length; i++)
         {
-            m_nameHash.Add(Animator.StringToHash("Base Layer." + attackNames[i]));
+            Debug.Log("Animator.StringToHash(attackNames[i]) : " + Animator.StringToHash("Attack." + attackNames[i]));
+            m_nameHash.Add(Animator.StringToHash("Attack." + attackNames[i]));
         }
 
 		playerAttack = player.GetComponent<PlayerAttack>();
@@ -39,8 +40,10 @@ public class AttackElement : MonoBehaviour
 
 				AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
+
+
 				Debug.Log("stateInfo.nameHash: " + stateInfo.nameHash );
-				Debug.Log("m_nameHash : " + m_nameHash);
+				Debug.Log("m_nameHash : " + m_nameHash[0]);
 
 				if (enemyHealth != null && m_nameHash.Contains(stateInfo.nameHash))
 				{

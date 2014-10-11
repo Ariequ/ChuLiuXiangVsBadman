@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Animator animator;
     private float speed = 0;
-    private Vector3 direction;         
+    private Vector3 direction = Vector3.zero;         
     private int m_SpeedId = 0;
     
     // Use this for initialization
@@ -23,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
 
         if (state.IsName("Idle") || state.IsName("Locomotion"))
         {
-            JoystickToEvents.Do(transform, Camera.main.transform, ref speed, ref direction);           
             animator.SetFloat(m_SpeedId, speed);
             transform.rotation = Quaternion.Lerp(transform.rotation, MathUtils.LookRotationXZ(direction), Time.deltaTime * 10); 
         }
@@ -36,5 +35,10 @@ public class PlayerMovement : MonoBehaviour
 		{
 			animator.SetBool("Attacked", false);
 		}
+    }
+
+    void FixedUpdate()
+    {
+        JoystickToEvents.Do(transform, Camera.main.transform, ref speed, ref direction);           
     }
 }
