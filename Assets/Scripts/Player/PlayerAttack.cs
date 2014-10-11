@@ -22,9 +22,6 @@ public class PlayerAttack : MonoBehaviour
         animator = null;
     // 当前连击数（即 玩家按下攻击键的次数）
     public int curComboCount = 0;
-    [HideInInspector]
-    public bool
-        canMakeDamage;
 
     void Awake()
     {

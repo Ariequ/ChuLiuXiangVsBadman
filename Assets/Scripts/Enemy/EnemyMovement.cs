@@ -7,19 +7,18 @@ public class EnemyMovement : MonoBehaviour
     PlayerHealth playerHealth;
     EnemyHealth enemyHealth;
     NavMeshAgent nav;
+	Animator animator;
 
     public bool navEnabled { get; set; }
 
-    Animator anim;
-
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.Find("Player");
         playerHealth = player.GetComponent <PlayerHealth>();
         enemyHealth = GetComponent <EnemyHealth>();
         nav = GetComponent <NavMeshAgent>();
         navEnabled = true;
-        anim = GetComponent<Animator>();
+		animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -33,5 +32,7 @@ public class EnemyMovement : MonoBehaviour
         {
             nav.enabled = false;
         }
+
+		animator.SetFloat("Speed", nav.velocity.magnitude);
     }
 }

@@ -3,7 +3,6 @@ using System.Collections;
 
 public class JoystickToEvents : MonoBehaviour 
 {
-    static float lastOperationTime;
     static float firtOperationTime;
     static float lastNoOperationTime;
     static bool inFastMood;
@@ -34,8 +33,6 @@ public class JoystickToEvents : MonoBehaviour
                     speed = 0.5f;
                 }
             }
-
-            lastOperationTime = Time.time;
         }
         else
         {

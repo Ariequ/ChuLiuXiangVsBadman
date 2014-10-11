@@ -7,21 +7,21 @@ public class EnemyHealth : MonoBehaviour
     public float sinkSpeed = 2.5f;
     public int scoreValue = 10;
     public AudioClip deathClip;
+	private float timeBetweenHurts = 0.15f;
 
 
-    Animator anim;
+	Animator animator;
     AudioSource enemyAudio;
-    ParticleSystem hitParticles;
     CapsuleCollider capsuleCollider;
     bool isDead;
     bool isSinking;
+	float timer;
 
-
+	
     void Awake ()
     {
-        anim = GetComponent <Animator> ();
+		animator = GetComponent <Animator> ();
         enemyAudio = GetComponent <AudioSource> ();
-        hitParticles = GetComponentInChildren <ParticleSystem> ();
         capsuleCollider = GetComponent <CapsuleCollider> ();
 
         currentHealth = startingHealth;
@@ -30,21 +30,29 @@ public class EnemyHealth : MonoBehaviour
 
     void Update ()
     {
-        if(isSinking)
-        {
-            transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
-        }
+		timer += Time.deltaTime;
+		
+        if (isSinking)
+		{
+			transform.Translate(-Vector3.up * sinkSpeed * Time.deltaTime);
+		}
+		else if (isDead)
+		{
+			animator.SetTrigger("Dead");
+		}
     }
 
 
     public void TakeDamage (int amount, Vector3 hitPoint, int attackType)
     {
-        if(isDead)
+		if(isDead || timer < timeBetweenHurts)
             return;
 
         enemyAudio.Play ();
 
         currentHealth -= amount;
+
+		Debug.Log("Hurting amout: " + amount);
             
 //        hitParticles.transform.position = hitPoint;
 //        hitParticles.Play();
@@ -55,7 +63,8 @@ public class EnemyHealth : MonoBehaviour
 		}
 		else
 		{
-			anim.SetInteger("HurtType", attackType);
+			timer = 0;
+			animator.SetInteger("HurtType", attackType);
 		}
     }
 
@@ -66,7 +75,7 @@ public class EnemyHealth : MonoBehaviour
 
         capsuleCollider.isTrigger = true;
 
-        anim.SetTrigger ("Dead");
+		animator.SetTrigger ("Dead");
 
         enemyAudio.clip = deathClip;
         enemyAudio.Play ();

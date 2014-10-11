@@ -39,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        JoystickToEvents.Do(transform, Camera.main.transform, ref speed, ref direction);           
+        JoystickToEvents.Do(transform, Camera.main.transform, ref speed, ref direction);   
+
+		animator.SetBool("JumpKeyDown", Input.GetKeyDown(KeyCode.Space));
     }
 }
