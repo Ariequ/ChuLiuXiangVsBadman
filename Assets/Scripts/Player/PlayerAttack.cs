@@ -22,6 +22,7 @@ public class PlayerAttack : MonoBehaviour
         animator = null;
     // 当前连击数（即 玩家按下攻击键的次数）
     public int curComboCount = 0;
+    private int _needCheckAttack;
 
     void Awake()
     {
@@ -103,6 +104,30 @@ public class PlayerAttack : MonoBehaviour
         {
             // 在攻击3状态下，按下攻击键，记录连击数为4（切换状态在Update()中）
             this.curComboCount = 6;
+        }
+    }
+
+    public void SetNeedCheckAttack(int value)
+    {
+        NeedCheckAttack = value; 
+        StartCoroutine("resetNeedCheckAttack");
+    }
+
+    IEnumerator resetNeedCheckAttack()
+    {
+        yield return new WaitForSeconds(0.01f);
+        NeedCheckAttack = -1;
+    }
+
+    public int NeedCheckAttack
+    {
+        get
+        {
+            return _needCheckAttack;
+        }
+        set
+        {
+            _needCheckAttack = value; 
         }
     }
 }

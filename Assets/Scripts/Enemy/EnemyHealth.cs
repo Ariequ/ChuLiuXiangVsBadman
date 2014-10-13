@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -7,7 +8,7 @@ public class EnemyHealth : MonoBehaviour
     public float sinkSpeed = 2.5f;
     public int scoreValue = 10;
     public AudioClip deathClip;
-	private float timeBetweenHurts = 0.15f;
+	private float timeBetweenHurts = 0.02f;
 
 
 	Animator animator;
@@ -16,7 +17,6 @@ public class EnemyHealth : MonoBehaviour
     bool isDead;
     bool isSinking;
 	float timer;
-
 	
     void Awake ()
     {
@@ -45,8 +45,11 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage (int amount, Vector3 hitPoint, int attackType)
     {
-		if(isDead || timer < timeBetweenHurts)
+        if(isDead || timer < timeBetweenHurts)
+        {
             return;
+        }
+         
 
         enemyAudio.Play ();
 
@@ -63,12 +66,11 @@ public class EnemyHealth : MonoBehaviour
 		}
 		else
 		{
-			timer = 0;
+            timer = 0;
 			animator.SetInteger("HurtType", attackType);
 		}
     }
-
-
+    
     void Death ()
     {
         isDead = true;

@@ -8,6 +8,7 @@ public class EnemyMovement : MonoBehaviour
     EnemyHealth enemyHealth;
     NavMeshAgent nav;
 	Animator animator;
+    AnimatorStateInfo state;
 
     public bool navEnabled { get; set; }
 
@@ -23,6 +24,14 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
+        state = animator.GetCurrentAnimatorStateInfo(0);
+
+        if (state.IsTag("Hurt"))
+        {
+            nav.enabled = false;
+            return;
+        }
+
         if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
         {
             nav.enabled = true;
