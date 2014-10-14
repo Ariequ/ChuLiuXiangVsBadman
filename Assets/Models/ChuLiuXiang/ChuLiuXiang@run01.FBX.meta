@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1ac6bae13b520c3489792999f20315f1
+guid: ef2adc0a3b1254f8ca00775f6555756c
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -119,7 +119,6 @@ ModelImporter:
     400112: //RootNode
     7400000: run01
     9500000: //RootNode
-    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -129,7 +128,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 0
+    animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -153,7 +152,7 @@ ModelImporter:
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 1
+      keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000

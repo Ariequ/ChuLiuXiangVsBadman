@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 66b0dfe7b08a1a942bc60b2b1c58778b
+guid: adc00b655cac54085922c30023010142
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -83,7 +83,6 @@ ModelImporter:
     400076: //RootNode
     7400000: fall
     9500000: //RootNode
-    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -93,7 +92,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -103,8 +102,8 @@ ModelImporter:
     - serializedVersion: 16
       name: fall
       takeName: Take 001
-      firstFrame: 0
-      lastFrame: 30
+      firstFrame: 41
+      lastFrame: 59
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -115,9 +114,9 @@ ModelImporter:
       loopBlendOrientation: 1
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
+      keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000

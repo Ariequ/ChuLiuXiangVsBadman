@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 79ac67c0787b944089043857d2de4ff8
+guid: 0539f39163ab24438b61266a8551f7d1
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -117,7 +117,7 @@ ModelImporter:
     400108: Bip001 Spine
     400110: Bip001 Spine1
     400112: //RootNode
-    7400000: stand_jump_forward
+    7400000: stand_jump01
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -128,7 +128,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 0
+    animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
@@ -136,10 +136,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: stand_jump_forward
+      name: stand_jump01
       takeName: Take 001
       firstFrame: 2
-      lastFrame: 19
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -151,7 +151,7 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 0
+      keepOriginalPositionY: 1
       keepOriginalPositionXZ: 1
       heightFromFeet: 0
       mirror: 0
@@ -166,7 +166,7 @@ ModelImporter:
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: .400584698
+          - time: .558781028
             value: 2
             inSlope: 0
             outSlope: 0

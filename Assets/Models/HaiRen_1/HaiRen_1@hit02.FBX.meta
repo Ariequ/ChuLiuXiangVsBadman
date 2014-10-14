@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2036ee8b8032a44498a555ccf9a53039
+guid: 9e51b0e56751c435b83c53f096f773f8
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -83,7 +83,6 @@ ModelImporter:
     400076: //RootNode
     7400000: hit02
     9500000: //RootNode
-    11100000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -103,8 +102,8 @@ ModelImporter:
     - serializedVersion: 16
       name: hit02
       takeName: Take 001
-      firstFrame: 17
-      lastFrame: 32
+      firstFrame: 14
+      lastFrame: 29
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -114,7 +113,7 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 1

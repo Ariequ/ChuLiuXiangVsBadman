@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 06fd9a7e2558842c0a98f9971f9cdcb8
+guid: 9653c6221c0f5485892e15775b4fa821
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -128,7 +128,7 @@ ModelImporter:
     bakeSimulation: 0
     optimizeGameObjects: 0
     motionNodeName: 
-    animationCompression: 0
+    animationCompression: 1
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
