@@ -54,8 +54,6 @@ public class EnemyHealth : MonoBehaviour
         enemyAudio.Play ();
 
         currentHealth -= amount;
-
-		Debug.Log("Hurting amout: " + amount);
             
 //        hitParticles.transform.position = hitPoint;
 //        hitParticles.Play();
