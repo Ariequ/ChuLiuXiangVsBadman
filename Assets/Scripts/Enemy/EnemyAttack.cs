@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public float timeBetweenAttacks = 2f;
+    public float timeBetweenAttacks = 5f;
     public int attackDamage = 10;
 
 
@@ -25,7 +25,6 @@ public class EnemyAttack : MonoBehaviour
         anim = GetComponent <Animator> ();
     }
 
-
     void OnTriggerEnter (Collider other)
     {
         if(other.gameObject == player)
@@ -35,7 +34,6 @@ public class EnemyAttack : MonoBehaviour
             anim.SetBool("PlayerInRange", true);
         }
     }
-
 
     void OnTriggerExit (Collider other)
     {
@@ -59,10 +57,10 @@ public class EnemyAttack : MonoBehaviour
 			anim.SetInteger("HurtType", 0);
 		}
 
-        if (timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0)
+        if (timer >= timeBetweenAttacks &&  enemyHealth.currentHealth > 0 && playerInRange)
         {
-            Attack();
             anim.SetBool("Attacking", true);
+            timer = 0f;
         }
         else
         {
@@ -76,11 +74,11 @@ public class EnemyAttack : MonoBehaviour
     }
 
 
-    void Attack ()
+    public void EnemyAttackEvent ()    // called in animation clipe
     {
-        timer = 0f;
+        Debug.Log("EnemyAttackEvent be called");
 
-        if(playerHealth.currentHealth > 0)
+        if(playerHealth.currentHealth > 0  && playerInRange)
         {
             playerHealth.TakeDamage (attackDamage);
         }

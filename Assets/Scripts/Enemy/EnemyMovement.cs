@@ -9,6 +9,8 @@ public class EnemyMovement : MonoBehaviour
     NavMeshAgent nav;
 	Animator animator;
     AnimatorStateInfo state;
+    float moveTime;
+    public float movePeriodTime = 5f;
 
     public bool navEnabled { get; set; }
 
@@ -26,9 +28,11 @@ public class EnemyMovement : MonoBehaviour
     {
         state = animator.GetCurrentAnimatorStateInfo(0);
 
-        if (state.IsTag("Hurt"))
+        if (!state.IsName("Move"))
         {
             nav.enabled = false;
+            moveTime = 0;
+            animator.SetFloat("MovedTime", moveTime);
             return;
         }
 
@@ -42,6 +46,8 @@ public class EnemyMovement : MonoBehaviour
             nav.enabled = false;
         }
 
-		animator.SetFloat("Speed", nav.velocity.magnitude);
+        moveTime += Time.deltaTime;
+
+        animator.SetFloat("MovedTime", moveTime);
     }
 }
