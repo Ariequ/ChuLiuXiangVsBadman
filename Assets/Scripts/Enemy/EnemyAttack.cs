@@ -59,6 +59,9 @@ public class EnemyAttack : MonoBehaviour
 
         if (timer >= timeBetweenAttacks &&  enemyHealth.currentHealth > 0 && playerInRange)
         {
+			Vector3 targetDirection = MathUtils.XZVector(player.transform.position) - MathUtils.XZVector(gameObject.transform.position);
+			Quaternion r = Quaternion.LookRotation(targetDirection);
+			transform.rotation = r;
             anim.SetBool("Attacking", true);
             timer = 0f;
         }

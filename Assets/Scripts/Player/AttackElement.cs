@@ -56,7 +56,11 @@ public class AttackElement : MonoBehaviour
 					{
 						animator.SetFloat("AnimationSpeed", 1f);
 					}
-					
+
+					Vector3 targetDirection = MathUtils.XZVector(player.transform.position) - MathUtils.XZVector(other.transform.position);
+					Quaternion r = Quaternion.LookRotation(targetDirection);
+					other.transform.rotation = r;
+
 					enemyHealth.TakeDamage(10, Vector3.zero, m_attackType);
                     iTween.ShakePosition (Camera.main.gameObject, iTween.Hash ("x", 0.3f, "time", cameraShakeTime));
 				}

@@ -17,6 +17,12 @@ public class JoyStickInput : MonoBehaviour
 
     void Awake()
     {
+		#if UNITY_IPHONE
+
+		#else
+		gameObject.SetActive(false);
+		#endif
+
         animator = GetComponent<Animator>();
         btnControllers = new ButtonController[4];
 

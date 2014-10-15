@@ -64,7 +64,7 @@ public class PlayerAttack : MonoBehaviour
             this.animator.SetInteger(ActionCMD, 1);
         } 
 
-        if (Input.GetKeyUp(KeyCode.J))
+		if (animator.GetBool("AttackKeyDown"))
         {
             // 监听用户输入（假设J键为攻击键）
             Attack();

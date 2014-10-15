@@ -17,7 +17,7 @@ public class PlayerJump : MonoBehaviour
 
         if (state.IsTag("Jump"))
         {
-            if (animator.GetFloat("Height") > 0.5f && Input.GetKeyDown(KeyCode.J))
+			if (animator.GetFloat("Height") > 0.5f && animator.GetBool("AttackKeyDown"))
             {
                 animator.SetInteger("ActionCMD", 1);
             }
