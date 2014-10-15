@@ -7,6 +7,7 @@ public class AttackElement : MonoBehaviour
 
 	public GameObject player;
 	public string[] attackNames;
+    public float cameraShakeTime = 0.1f;
 	public int m_attackType;
 	Animator animator;
 	AnimatorStateInfo state;
@@ -32,7 +33,7 @@ public class AttackElement : MonoBehaviour
 		if (state.IsTag("Attack") && playerAttack.NeedCheckAttack > 0 && other.tag == "Enemy")
 		{
 			enemyHealth = other.GetComponent <EnemyHealth>();
-			if (enemyHealth != null)
+            if (enemyHealth != null && enemyHealth.currentHealth > 0)
 			{
 				bool inRightState = false;
 				foreach (string attackName in attackNames)
@@ -57,6 +58,7 @@ public class AttackElement : MonoBehaviour
 					}
 					
 					enemyHealth.TakeDamage(10, Vector3.zero, m_attackType);
+                    iTween.ShakePosition (Camera.main.gameObject, iTween.Hash ("x", 0.3f, "time", cameraShakeTime));
 				}
 			}
 		}
