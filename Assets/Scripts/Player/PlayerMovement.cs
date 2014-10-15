@@ -5,6 +5,8 @@ using System.Collections;
 [RequireComponent(typeof(Animator))]  
 public class PlayerMovement : MonoBehaviour
 {
+    public JoyStickInput joyStickInput;
+
     private Animator animator;
     private float speed = 0;
     private Vector3 direction = Vector3.zero;         
@@ -39,7 +41,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        JoystickToEvents.Do(transform, Camera.main.transform, ref speed, ref direction);   
+//        JoystickToEvents.Do(transform, Camera.main.transform, ref speed, ref direction);   
+        joyStickInput.Do(transform, Camera.main.transform, ref speed, ref direction);   
 
 		animator.SetBool("JumpKeyDown", Input.GetKeyDown(KeyCode.Space));
     }
