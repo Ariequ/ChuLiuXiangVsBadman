@@ -107,9 +107,9 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    public void SetNeedCheckAttack(int value)
+    public void SetNeedCheckAttack()
     {
-        NeedCheckAttack = value; 
+        NeedCheckAttack = 1; 
         StartCoroutine("resetNeedCheckAttack");
     }
 
