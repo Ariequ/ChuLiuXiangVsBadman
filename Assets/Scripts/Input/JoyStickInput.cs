@@ -11,7 +11,6 @@ public class JoyStickInput : MonoBehaviour
     bool inNoOperationMood;
     bool pressing;
     public GameObject[] directionButtons;
-    Animator animator;
     AnimatorStateInfo info;
     ButtonController[] btnControllers;
 
@@ -23,7 +22,6 @@ public class JoyStickInput : MonoBehaviour
 		gameObject.SetActive(false);
 		#endif
 
-        animator = GetComponent<Animator>();
         btnControllers = new ButtonController[4];
 
         btnControllers [0] = directionButtons [0].GetComponent<ButtonController>();

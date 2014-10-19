@@ -79,8 +79,6 @@ public class EnemyAttack : MonoBehaviour
 
     public void EnemyAttackEvent ()    // called in animation clipe
     {
-        Debug.Log("EnemyAttackEvent be called");
-
         if(playerHealth.currentHealth > 0  && playerInRange)
         {
             playerHealth.TakeDamage (attackDamage);

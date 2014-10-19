@@ -8,7 +8,6 @@ public class EnemyHealth : MonoBehaviour
     public float sinkSpeed = 2.5f;
     public int scoreValue = 10;
     public AudioClip deathClip;
-	private float timeBetweenHurts = 0.02f;
 
 
 	Animator animator;
@@ -45,7 +44,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage (int amount, Vector3 hitPoint, int attackType)
     {
-        if(isDead || timer < timeBetweenHurts)
+        if(isDead)
         {
             return;
         }

@@ -14,12 +14,14 @@ public class AttackElement : MonoBehaviour
 	List<int> m_nameHash;
 	private PlayerAttack playerAttack;
 	EnemyHealth enemyHealth;
+	PlayerMovement playerMovement;
 	// Use this for initialization
 	void Awake()
 	{
 		animator = player.GetComponent<Animator>();
 		m_nameHash = new List<int>();
 		playerAttack = player.GetComponent<PlayerAttack>();
+		playerMovement = player.GetComponent<PlayerMovement>();
 
 		for (int i=0; i<attackNames.Length; i++)
 		{
@@ -60,6 +62,9 @@ public class AttackElement : MonoBehaviour
 					Vector3 targetDirection = MathUtils.XZVector(player.transform.position) - MathUtils.XZVector(other.transform.position);
 					Quaternion r = Quaternion.LookRotation(targetDirection);
 					other.transform.rotation = r;
+
+//					player.transform.rotation = Quaternion.LookRotation(-targetDirection);
+					playerMovement.ChangeDirection(-targetDirection);
 
 					enemyHealth.TakeDamage(10, Vector3.zero, m_attackType);
                     iTween.ShakePosition (Camera.main.gameObject, iTween.Hash ("x", 0.3f, "time", cameraShakeTime));
