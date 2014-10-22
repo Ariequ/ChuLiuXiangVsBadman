@@ -36,7 +36,6 @@ public class PlayerAttack : MonoBehaviour
         {
             // 每次设置完参数之后，都应该在下一帧开始时将参数设置清空，避免连续切换
             this.animator.SetInteger(ActionCMD, 0);
-			animator.SetBool("AttackKeyDown", false);
         }
         
         if (stateInfo.IsName(ATTACK01) && (stateInfo.normalizedTime > 0.8f) && (this.curComboCount == 2))
@@ -69,6 +68,7 @@ public class PlayerAttack : MonoBehaviour
         {
             // 监听用户输入（假设J键为攻击键）
             Attack();
+			animator.SetBool("AttackKeyDown", false);
         }
     }
 
