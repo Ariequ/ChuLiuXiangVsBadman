@@ -42,6 +42,11 @@ public class PlayerMovement : MonoBehaviour
 				OnTap();
 			}
 		}
+		else
+		if (Input.GetKeyDown(KeyCode.J))
+		{
+			OnTap();
+		}
 
 		transform.rotation = Quaternion.Lerp(transform.rotation, MathUtils.LookRotationXZ(direction), Time.deltaTime * 10); 
 	}
