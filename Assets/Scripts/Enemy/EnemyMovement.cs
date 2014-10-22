@@ -7,6 +7,7 @@ public class EnemyMovement : MonoBehaviour
     PlayerHealth playerHealth;
     EnemyHealth enemyHealth;
     NavMeshAgent nav;
+	NavMeshObstacle obstacle;
 	Animator animator;
     AnimatorStateInfo state;
     float moveTime;
@@ -20,6 +21,7 @@ public class EnemyMovement : MonoBehaviour
         playerHealth = player.GetComponent <PlayerHealth>();
         enemyHealth = GetComponent <EnemyHealth>();
         nav = GetComponent <NavMeshAgent>();
+		obstacle = GetComponent<NavMeshObstacle>();
         navEnabled = true;
 		animator = GetComponent<Animator>();
     }
@@ -31,6 +33,7 @@ public class EnemyMovement : MonoBehaviour
         if (!state.IsName("Move"))
         {
             nav.enabled = false;
+			obstacle.enabled = true;
             moveTime = 0;
             animator.SetFloat("MovedTime", moveTime);
             return;
@@ -39,11 +42,13 @@ public class EnemyMovement : MonoBehaviour
         if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
         {
             nav.enabled = true;
+			obstacle.enabled = false;
             nav.SetDestination(player.transform.position);
         }
         else
         {
             nav.enabled = false;
+			obstacle.enabled = true;
         }
 
         moveTime += Time.deltaTime;
