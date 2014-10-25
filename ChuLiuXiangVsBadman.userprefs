@@ -1,16 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Player/PlayerMovement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/EasyTouch/Plugins/EasyTouch.cs">
     <Files>
-      <File FileName="../MyGame/Parachute2D/Assets/Scripts/BulletController.cs" Line="27" Column="10" />
-      <File FileName="../MyGame/Parachute2D/Assets/Scripts/CloudController.cs" Line="1" Column="1" />
-      <File FileName="../MyGame/Parachute2D/Assets/Scripts/GameController.cs" Line="1" Column="1" />
-      <File FileName="../MyGame/Parachute2D/Assets/Scripts/CameraFollow.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Managers/ScoreManager.cs" Line="25" Column="1" />
-      <File FileName="Assets/Scripts/Enemy/EnemyHealth.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Enemy/EnemyAttack.cs" Line="17" Column="2" />
-      <File FileName="Assets/Scripts/Player/PlayerMovement.cs" Line="180" Column="65" />
-      <File FileName="Assets/Scripts/Player/PlayerAttack.cs" Line="124" Column="6" />
+      <File FileName="Assets/EasyTouch/Plugins/EasyTouch.cs" Line="1196" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

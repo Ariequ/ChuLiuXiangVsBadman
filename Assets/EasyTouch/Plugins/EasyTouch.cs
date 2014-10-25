@@ -1190,7 +1190,7 @@ public class EasyTouch : MonoBehaviour {
 			}
 			
 			gesture.otherReceiver = receiverObject;
-			gesture.isHoverReservedArea = IsTouchReservedArea( fingers[twoFinger0].fingerIndex) || IsTouchReservedArea( fingers[twoFinger1].fingerIndex);	
+			gesture.isHoverReservedArea = false;//IsTouchReservedArea( fingers[twoFinger0].fingerIndex) || IsTouchReservedArea( fingers[twoFinger1].fingerIndex);	
 			
 			if (useBroadcastMessage){
 				SendGesture2Finger(message,gesture );
