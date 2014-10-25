@@ -9,21 +9,27 @@ public class PlayerMovement : MonoBehaviour
 	private Animator animator;
 	private Vector3 direction = Vector3.zero;
 	private int m_SpeedId = 0;
+
+	private const float MAX_SPEED = 5.0f;
+
+	CharacterController chracterController;
 	
     
 	// Use this for initialization
 	void Start()
 	{
 		animator = GetComponent<Animator>();
-		m_SpeedId = Animator.StringToHash("Speed");     
+		m_SpeedId = Animator.StringToHash("Speed");    
+		chracterController = GetComponent<CharacterController>();
 	}
-    
+     
 	void Update()
 	{
 		AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
 
 		if (state.IsName("Idle") || state.IsName("Locomotion"))
 		{
+			chracterController.Move(new Vector3(this.direction.normalized.x, 0, this.direction.normalized.z) * this.direction.magnitude * animator.GetFloat("Speed") * Time.deltaTime);
 		}
 		else
 		{
@@ -49,19 +55,12 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		transform.rotation = Quaternion.Lerp(transform.rotation, MathUtils.LookRotationXZ(direction), Time.deltaTime * 10); 
-	}
 
-//	void FixedUpdate()
-//	{
-//		#if UNITY_IPHONE
-//		joyStickInput.Do(transform, Camera.main.transform, ref speed, ref direction);  
-//		#else
-//		JoystickToEvents.Do(transform, Camera.main.transform, ref speed, ref direction);   
-//		#endif
-//         
-//		animator.SetBool("JumpKeyDown", Input.GetKeyDown(KeyCode.Space));
-//		animator.SetBool("AttackKeyDown", Input.GetKeyDown(KeyCode.J));
-//	}
+		if (!chracterController.isGrounded)
+		{
+			chracterController.Move(Physics.gravity * Time.deltaTime);
+		}
+	}
 
 	public void SetAttackKeyDown()
 	{
@@ -152,33 +151,28 @@ public class PlayerMovement : MonoBehaviour
 	{
 		EasyJoystick.On_JoystickMove += On_JoystickMove;	
 		EasyJoystick.On_JoystickMoveEnd += On_JoystickMoveEnd;
-		EasyButton.On_ButtonPress += On_ButtonPress;
-		EasyButton.On_ButtonUp += On_ButtonUp;	
-		//EasyButton.On_ButtonDown += On_ButtonDown;
+		EasyButton.On_ButtonPress += On_ButtonPress;	
 	}
 	
 	void OnDisable()
 	{
 		EasyJoystick.On_JoystickMove -= On_JoystickMove;	
 		EasyJoystick.On_JoystickMoveEnd -= On_JoystickMoveEnd;
-		//		EasyButton.On_ButtonPress -= On_ButtonPress;
-		EasyButton.On_ButtonUp -= On_ButtonUp;	
+		EasyButton.On_ButtonPress -= On_ButtonPress;
 	}
 	
 	void OnDestroy()
 	{
 		EasyJoystick.On_JoystickMove -= On_JoystickMove;	
 		EasyJoystick.On_JoystickMoveEnd -= On_JoystickMoveEnd;
-		//		EasyButton.On_ButtonPress -= On_ButtonPress;
-		EasyButton.On_ButtonUp -= On_ButtonUp;	
+		EasyButton.On_ButtonPress -= On_ButtonPress;
 	}
 	
 	void On_JoystickMove(MovingJoystick move)
 	{
-		float angle = move.Axis2Angle(true);
-		transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
-		animator.SetFloat(m_SpeedId, move.joystickAxis.magnitude * 5);
-//		transform.Translate(Vector3.forward * move.joystickValue.magnitude * Time.deltaTime);	
+//		float angle = move.Axis2Angle(true);
+		this.direction = new Vector3(move.joystickAxis.x, 0, move.joystickAxis.y);
+		animator.SetFloat(m_SpeedId, Mathf.Min(1, move.joystickAxis.magnitude) * MAX_SPEED);
 	}
 	
 	void On_JoystickMoveEnd(MovingJoystick move)
@@ -190,12 +184,4 @@ public class PlayerMovement : MonoBehaviour
 	{
 		OnTap();
 	}
-	
-	void On_ButtonUp(string buttonName)
-	{
-		if (buttonName == "Exit")
-		{
-			Application.LoadLevel("StartMenu");	
-		}
-	}	
 }

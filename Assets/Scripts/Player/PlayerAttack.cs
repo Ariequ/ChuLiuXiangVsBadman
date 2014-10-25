@@ -110,8 +110,18 @@ public class PlayerAttack : MonoBehaviour
 
     public void SetNeedCheckAttack()
     {
-        NeedCheckAttack = 1; 
-        StartCoroutine("resetNeedCheckAttack");
+//		Debug.Log("setneed check attack");
+//        NeedCheckAttack = 1; 
+//        StartCoroutine("resetNeedCheckAttack");
+
+		AttackElement[] elements = GetComponentsInChildren<AttackElement>();
+
+		foreach (AttackElement element in elements)
+		{
+//			Debug.Log("=====");
+			element.TakeAttack();
+		}
+
     }
 
     IEnumerator resetNeedCheckAttack()

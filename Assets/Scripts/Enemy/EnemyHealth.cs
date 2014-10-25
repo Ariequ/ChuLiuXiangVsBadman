@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class EnemyHealth : MonoBehaviour
     public float sinkSpeed = 2.5f;
     public int scoreValue = 10;
     public AudioClip deathClip;
+	public Text healthText;
 
 
 	Animator animator;
@@ -30,6 +32,8 @@ public class EnemyHealth : MonoBehaviour
     void Update ()
     {
 		timer += Time.deltaTime;
+
+		healthText.text = currentHealth.ToString();
 		
         if (isSinking)
 		{
