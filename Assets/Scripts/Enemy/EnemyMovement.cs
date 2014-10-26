@@ -7,11 +7,12 @@ public class EnemyMovement : MonoBehaviour
     PlayerHealth playerHealth;
     EnemyHealth enemyHealth;
     NavMeshAgent nav;
-	NavMeshObstacle obstacle;
-	Animator animator;
+    NavMeshObstacle obstacle;
+    Animator animator;
     AnimatorStateInfo state;
     float moveTime;
     public float movePeriodTime = 5f;
+    CharacterController characterController;
 
     public bool navEnabled { get; set; }
 
@@ -21,9 +22,10 @@ public class EnemyMovement : MonoBehaviour
         playerHealth = player.GetComponent <PlayerHealth>();
         enemyHealth = GetComponent <EnemyHealth>();
         nav = GetComponent <NavMeshAgent>();
-		obstacle = GetComponent<NavMeshObstacle>();
+        obstacle = GetComponent<NavMeshObstacle>();
         navEnabled = true;
-		animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
+        characterController = GetComponent<CharacterController>();
     }
 
     void Update()
@@ -33,22 +35,26 @@ public class EnemyMovement : MonoBehaviour
         if (!state.IsName("Move"))
         {
             nav.enabled = false;
-			obstacle.enabled = true;
+            obstacle.enabled = true;
             moveTime = 0;
             animator.SetFloat("MovedTime", moveTime);
             return;
+        }       
+
+        if (!characterController.isGrounded)
+        {
+            characterController.Move(Physics.gravity * Time.deltaTime * 5);
         }
 
         if (enemyHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
         {
             nav.enabled = true;
-			obstacle.enabled = false;
+            obstacle.enabled = false;
             nav.SetDestination(player.transform.position);
-        }
-        else
+        } else
         {
             nav.enabled = false;
-			obstacle.enabled = true;
+            obstacle.enabled = true;
         }
 
         moveTime += Time.deltaTime;

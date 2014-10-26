@@ -536,7 +536,7 @@ public class EasyTouch : MonoBehaviour {
 			
 			// Reset after two finger gesture;
 			if (oldTouchCount==2 && count!=2 && count>0){
-				CreateGesture2Finger(EventName.On_Cancel2Fingers,Vector2.zero,Vector2.zero,Vector2.zero,0,SwipeType.None,0,Vector2.zero,0,0,0);
+//				CreateGesture2Finger(EventName.On_Cancel2Fingers,Vector2.zero,Vector2.zero,Vector2.zero,0,SwipeType.None,0,Vector2.zero,0,0,0);
 			}
 			
 			// Get touches		

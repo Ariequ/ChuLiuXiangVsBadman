@@ -27,7 +27,12 @@ public class PlayerMovement : MonoBehaviour
 	{
 		AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
 
-		if (state.IsName("Idle") || state.IsName("Locomotion"))
+        if (state.IsTag("Hurt"))
+        {
+            animator.SetInteger("HurtType", 0);
+        }
+        
+        if (state.IsName("Idle") || state.IsName("Locomotion"))
 		{
 			chracterController.Move(new Vector3(this.direction.normalized.x, 0, this.direction.normalized.z) * this.direction.magnitude * animator.GetFloat("Speed") * Time.deltaTime);
 		}
@@ -41,14 +46,14 @@ public class PlayerMovement : MonoBehaviour
 			animator.SetBool("Attacked", false);
 		}
 
-		if (Input.GetMouseButtonDown(0))
-		{
-			if (Input.mousePosition.x > Screen.width / 2)
-			{
-				OnTap();
-			}
-		}
-		else
+//		if (Input.GetMouseButtonDown(0))
+//		{
+//			if (Input.mousePosition.x > Screen.width / 2)
+//			{
+//				OnTap();
+//			}
+//		}
+//		else
 		if (Input.GetKeyDown(KeyCode.J))
 		{
 			OnTap();
@@ -65,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
 	public void SetAttackKeyDown()
 	{
 		Debug.Log("SetAttackKeyDown");
+
 		animator.SetBool("AttackKeyDown", true);
 	}
 
@@ -151,21 +157,36 @@ public class PlayerMovement : MonoBehaviour
 	{
 		EasyJoystick.On_JoystickMove += On_JoystickMove;	
 		EasyJoystick.On_JoystickMoveEnd += On_JoystickMoveEnd;
-		EasyButton.On_ButtonPress += On_ButtonPress;	
+//		EasyButton.On_ButtonPress += On_ButtonPress;	
+        EasyButton.On_ButtonDown += HandleOn_ButtonDown;
 	}
+
+    void HandleOn_ButtonDown (string buttonName)
+    {
+        if (buttonName == "Attack")
+        {
+            OnTap();
+        } else if (buttonName == "Catch")
+        {
+            Debug.Log("catch button press");
+            animator.SetTrigger("Catch");
+            PlayerCatch playerCatch = GetComponentInChildren<PlayerCatch>();
+            playerCatch.SendMessage("CheckCatch");
+        }
+    }
 	
 	void OnDisable()
 	{
 		EasyJoystick.On_JoystickMove -= On_JoystickMove;	
 		EasyJoystick.On_JoystickMoveEnd -= On_JoystickMoveEnd;
-		EasyButton.On_ButtonPress -= On_ButtonPress;
+        EasyButton.On_ButtonDown -= HandleOn_ButtonDown;
 	}
 	
 	void OnDestroy()
 	{
 		EasyJoystick.On_JoystickMove -= On_JoystickMove;	
 		EasyJoystick.On_JoystickMoveEnd -= On_JoystickMoveEnd;
-		EasyButton.On_ButtonPress -= On_ButtonPress;
+        EasyButton.On_ButtonDown -= HandleOn_ButtonDown;
 	}
 	
 	void On_JoystickMove(MovingJoystick move)
@@ -178,10 +199,5 @@ public class PlayerMovement : MonoBehaviour
 	void On_JoystickMoveEnd(MovingJoystick move)
 	{
 		animator.SetFloat(m_SpeedId, 0f);
-	}
-
-	void On_ButtonPress(string buttonName)
-	{
-		OnTap();
 	}
 }

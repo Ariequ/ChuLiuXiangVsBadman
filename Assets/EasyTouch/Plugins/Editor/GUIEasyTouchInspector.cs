@@ -51,7 +51,7 @@ public class GUIEasyTouchInspector : Editor {
 				
 					// Camera
 					serializedObject.Update();
-			   		EditorGUIUtility.LookLikeInspector();
+//			   		EditorGUIUtility.LookLikeInspector();
 			    	SerializedProperty cameras = serializedObject.FindProperty("nGUICameras");
 					EditorGUILayout.PropertyField( cameras,true);
 			   		serializedObject.ApplyModifiedProperties();
@@ -61,7 +61,7 @@ public class GUIEasyTouchInspector : Editor {
 				
 					// layers
 					serializedObject.Update();
-			   		EditorGUIUtility.LookLikeInspector();
+//			   		EditorGUIUtility.LookLikeInspector();
 			    	SerializedProperty layers = serializedObject.FindProperty("nGUILayers");
 					EditorGUILayout.PropertyField( layers,false);
 			   		serializedObject.ApplyModifiedProperties();
@@ -102,7 +102,7 @@ public class GUIEasyTouchInspector : Editor {
 				if (t.autoSelect){
 					
 					serializedObject.Update();
-			   		EditorGUIUtility.LookLikeInspector();
+//			   		EditorGUIUtility.LookLikeInspector();
 			    	SerializedProperty layers = serializedObject.FindProperty("pickableLayers");
 					EditorGUILayout.PropertyField( layers,true);
 			   		serializedObject.ApplyModifiedProperties();

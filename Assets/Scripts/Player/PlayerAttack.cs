@@ -13,7 +13,7 @@ public class PlayerAttack : MonoBehaviour
     private static readonly string ATTACK02 = "attack02";
     private static readonly string ATTACK03 = "attack03";
     private static readonly string ATTACK04 = "attack04";
-    private static readonly string ATTACK05 = "attack05";
+//    private static readonly string ATTACK05 = "attack05";
 
     // 动画状态机参数Key
     private static readonly string ActionCMD = "ActionCMD";
@@ -23,6 +23,9 @@ public class PlayerAttack : MonoBehaviour
     // 当前连击数（即 玩家按下攻击键的次数）
     public int curComboCount = 0;
     private int _needCheckAttack;
+
+    private bool isCatchingEnemy;
+    private GameObject cathingEnemy;
 
     void Awake()
     {
@@ -58,11 +61,11 @@ public class PlayerAttack : MonoBehaviour
             // 挡在攻击3状态下（同理攻击1状态）
             this.animator.SetInteger(ActionCMD, 1);
         } 
-        else if (stateInfo.IsName(ATTACK05) && (stateInfo.normalizedTime > 0.8f) && (this.curComboCount == 6))
-        {
-            // 挡在攻击3状态下（同理攻击1状态）
-            this.animator.SetInteger(ActionCMD, 1);
-        } 
+//        else if (stateInfo.IsName(ATTACK05) && (stateInfo.normalizedTime > 0.8f) && (this.curComboCount == 6))
+//        {
+//            // 挡在攻击3状态下（同理攻击1状态）
+//            this.animator.SetInteger(ActionCMD, 1);
+//        } 
 
 		if (animator.GetBool("AttackKeyDown"))
         {
@@ -74,6 +77,18 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
+        if (isCatchingEnemy)
+        {
+            animator.SetTrigger("ThrowEnemy");
+            isCatchingEnemy = false;
+            animator.SetLayerWeight(1, 0);
+            cathingEnemy.GetComponent<Animator>().SetTrigger("BeThrow");
+            iTween.MoveBy(cathingEnemy, iTween.Hash("amount",(transform.forward + Vector3.down / 2f) * 10,"time",2.0f));
+            Debug.Log("Throw enemy");
+            cathingEnemy = null;
+            return;
+        }
+
         AnimatorStateInfo stateInfo = this.animator.GetCurrentAnimatorStateInfo(0);
         if (stateInfo.IsName(IdleState) || stateInfo.IsName(MoveState))
         {
@@ -101,11 +116,11 @@ public class PlayerAttack : MonoBehaviour
             // 在攻击3状态下，按下攻击键，记录连击数为4（切换状态在Update()中）
             this.curComboCount = 5;
         }
-        else if (stateInfo.IsName(ATTACK05))
-        {
-            // 在攻击3状态下，按下攻击键，记录连击数为4（切换状态在Update()中）
-            this.curComboCount = 6;
-        }
+//        else if (stateInfo.IsName(ATTACK05))
+//        {
+//            // 在攻击3状态下，按下攻击键，记录连击数为4（切换状态在Update()中）
+//            this.curComboCount = 6;
+//        }
     }
 
     public void SetNeedCheckAttack()
@@ -140,5 +155,13 @@ public class PlayerAttack : MonoBehaviour
         {
             _needCheckAttack = value; 
         }
+    }
+
+    public void EnemyBeCatched(GameObject enemy)
+    {
+        Debug.Log("enemybecatched" + enemy.name);
+        animator.SetLayerWeight(1, 1);
+        isCatchingEnemy = true;
+        cathingEnemy = enemy;
     }
 }
