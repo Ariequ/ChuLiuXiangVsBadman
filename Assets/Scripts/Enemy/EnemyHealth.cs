@@ -4,18 +4,20 @@ using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int startingHealth = 1000;
+    public int startingHealth = 100;
     public int currentHealth = 100;
     public float sinkSpeed = 2.5f;
     public int scoreValue = 10;
     public AudioClip deathClip;
     public Text healthText;
+    private float cameraShakeTime = 0.05f;
     Animator animator;
     AudioSource enemyAudio;
     CapsuleCollider capsuleCollider;
     bool isDead;
     bool isSinking;
     float timer;
+    AnimatorStateInfo state;
     
     void Awake()
     {
@@ -31,7 +33,7 @@ public class EnemyHealth : MonoBehaviour
         timer += Time.deltaTime;
 
         healthText.text = currentHealth.ToString();
-        
+
         if (isSinking)
         {
             transform.Translate(-Vector3.up * sinkSpeed * Time.deltaTime);
@@ -41,15 +43,21 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int amount, Vector3 hitPoint, int attackType)
+    public void TakeDamage(int amount, Vector3 hitPoint, int attackType, Vector3 hurtPostion)
     {
-        if (isDead)
+        state = animator.GetCurrentAnimatorStateInfo(0);
+
+        if (isDead || state.IsName("hit03"))
         {
             return;
         }
-         
+
+        Vector3 targetDirection = MathUtils.XZVector(hurtPostion) - MathUtils.XZVector(transform.position);
+        Quaternion r = Quaternion.LookRotation(targetDirection);
+        transform.rotation = r;
 
         enemyAudio.Play();
+        iTween.ShakePosition(Camera.main.gameObject, iTween.Hash("x", 0.1f * attackType, "time", cameraShakeTime * attackType));
 
         currentHealth -= amount;
 
@@ -58,7 +66,8 @@ public class EnemyHealth : MonoBehaviour
             Death();
         } else
         {
-            animator.SetInteger("HurtType", attackType);
+            Debug.Log("hurttype :" + attackType);
+            animator.SetTrigger("HurtType_" + attackType);
         }
 
     }
@@ -83,7 +92,7 @@ public class EnemyHealth : MonoBehaviour
     public void StartSinking()
     {
         GetComponent <NavMeshAgent>().enabled = false;
-        GetComponent <Rigidbody>().isKinematic = true;
+//        GetComponent <Rigidbody>().isKinematic = true;
         isSinking = true;
         ScoreManager.score += scoreValue;
         Destroy(gameObject, 2f);
