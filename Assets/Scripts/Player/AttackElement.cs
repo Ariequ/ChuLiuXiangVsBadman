@@ -90,7 +90,7 @@ public class AttackElement : MonoBehaviour
 				//					player.transform.rotation = Quaternion.LookRotation(-targetDirection);
 				playerMovement.ChangeDirection(-targetDirection);
 			
-				enemyHealth.TakeDamage(10, Vector3.zero, 3);
+				enemyHealth.TakeDamage(10, Vector3.zero, m_attackType);
 				iTween.ShakePosition(Camera.main.gameObject, iTween.Hash("x", 0.3f, "time", cameraShakeTime));
 
 			}
