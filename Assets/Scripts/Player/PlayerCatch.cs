@@ -33,30 +33,24 @@ public class PlayerCatch : MonoBehaviour
     {
         if (!contactGameObjects.Contains(other.gameObject) && other.tag == "Enemy")
         {
-            Debug.Log("enemy name :" + other.name);
             this.contactGameObjects.Add(other.gameObject);
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        Debug.Log("OnTriggerExit enemy name :" + other.name);
         this.contactGameObjects.Remove(other.gameObject);
     }
 
     public void CheckCatch()
     {
-        Debug.Log("checkcath=====");
         foreach (GameObject enemy in contactGameObjects)
         {
             Animator animator = enemy.GetComponent<Animator>();
             AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
 
-            Debug.Log("state :" + state.nameHash);
-
             if (state.IsName("hit03"))
             {
-                Debug.Log("can set becatch");
                 animator.SetTrigger("BeCatch");
                 break;
             }
