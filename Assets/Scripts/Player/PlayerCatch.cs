@@ -6,10 +6,12 @@ public class PlayerCatch : MonoBehaviour
 {
     private List<GameObject> contactGameObjects = new List<GameObject>();
     Animator animator;
+    PlayerAttack playerAttack;
 
     void Start()
     {
         animator = GetComponentInParent<Animator>();
+        playerAttack = GetComponentInParent<PlayerAttack>();
     }
 
     void OnEnable()
@@ -45,13 +47,19 @@ public class PlayerCatch : MonoBehaviour
         foreach (GameObject enemy in contactGameObjects)
         {
             Animator animator = enemy.GetComponent<Animator>();
-            animator.SetTrigger("BeCatch");
+            AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+
+            if (state.IsName("hit03"))
+            {
+                animator.SetTrigger("BeCatch");
+                break;
+            }
         }
     }
 
-    void HandleOn_ButtonDown (string buttonName)
+    void HandleOn_ButtonDown(string buttonName)
     {
-        if (buttonName == "Catch")
+        if (buttonName == "Catch" && !playerAttack.IsCatchingEnemy)
         {
             animator.SetTrigger("Catch");
             CheckCatch();

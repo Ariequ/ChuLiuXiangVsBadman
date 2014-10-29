@@ -80,6 +80,14 @@ public class PlayerAttack : MonoBehaviour
         leftSwipe.UpdateTrail (Time.time, Time.deltaTime);
     }
 
+    public bool IsCatchingEnemy
+    {
+        get
+        {
+            return isCatchingEnemy;
+        }
+    }
+
     void Attack()
     {
         if (isCatchingEnemy)
@@ -88,7 +96,7 @@ public class PlayerAttack : MonoBehaviour
             isCatchingEnemy = false;
             animator.SetLayerWeight(1, 0);
             cathingEnemy.GetComponent<Animator>().SetTrigger("BeThrow");
-            iTween.MoveBy(cathingEnemy, iTween.Hash("amount",(transform.forward + Vector3.down / 2f) * 10,"time",2.0f));
+            iTween.MoveBy(cathingEnemy, iTween.Hash("amount",(transform.forward + Vector3.down/2) * 10,"time",2.0f));
             Debug.Log("Throw enemy");
             cathingEnemy = null;
             return;

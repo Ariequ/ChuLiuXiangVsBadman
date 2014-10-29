@@ -166,12 +166,6 @@ public class PlayerMovement : MonoBehaviour
         if (buttonName == "Attack")
         {
             OnTap();
-        } else if (buttonName == "Catch")
-        {
-            Debug.Log("catch button press");
-            animator.SetTrigger("Catch");
-            PlayerCatch playerCatch = GetComponentInChildren<PlayerCatch>();
-            playerCatch.SendMessage("CheckCatch");
         }
     }
 	

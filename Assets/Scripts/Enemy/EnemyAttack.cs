@@ -52,11 +52,6 @@ public class EnemyAttack : MonoBehaviour
 
 		AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
 
-		if (state.IsTag("Hurt"))
-		{
-			anim.SetInteger("HurtType", 0);
-		}
-
         if (timer >= timeBetweenAttacks &&  enemyHealth.currentHealth > 0 && playerInRange)
         {
 			Vector3 targetDirection = MathUtils.XZVector(player.transform.position) - MathUtils.XZVector(gameObject.transform.position);

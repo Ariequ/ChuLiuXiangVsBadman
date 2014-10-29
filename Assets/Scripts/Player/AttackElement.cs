@@ -6,7 +6,7 @@ public class AttackElement : MonoBehaviour
 {
 	public GameObject player;
 	public string[] attackNames;
-	public float cameraShakeTime = 0.5f;
+
 	public int m_attackType;
 	Animator animator;
 	AnimatorStateInfo state;
@@ -67,7 +67,6 @@ public class AttackElement : MonoBehaviour
 
 		foreach (GameObject enemy in contactGameObjects)
 		{
-//			Debug.Log("++++++");
 			enemyHealth = enemy.GetComponent <EnemyHealth>();
 
 			if (enemyHealth != null && enemyHealth.currentHealth > 0)
@@ -83,16 +82,9 @@ public class AttackElement : MonoBehaviour
 					animator.SetFloat("AnimationSpeed", 1f);
 				}
 
-				Vector3 targetDirection = MathUtils.XZVector(player.transform.position) - MathUtils.XZVector(enemy.transform.position);
-				Quaternion r = Quaternion.LookRotation(targetDirection);
-				enemy.transform.rotation = r;
+                playerMovement.ChangeDirection(enemy.transform.position - player.transform.position);
 			
-				//					player.transform.rotation = Quaternion.LookRotation(-targetDirection);
-				playerMovement.ChangeDirection(-targetDirection);
-			
-				enemyHealth.TakeDamage(10, Vector3.zero, 3);
-				iTween.ShakePosition(Camera.main.gameObject, iTween.Hash("x", 0.3f, "time", cameraShakeTime));
-
+                enemyHealth.TakeDamage(10, Vector3.zero, m_attackType, player.transform.position);
 			}
 		}
 	}
