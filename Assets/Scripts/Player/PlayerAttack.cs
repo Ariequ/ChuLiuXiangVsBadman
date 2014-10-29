@@ -5,6 +5,7 @@ public class PlayerAttack : MonoBehaviour
 {
     public float timeBetweenAttacks = 2f;
     public int attackDamage = 10;
+    public WeaponTrail leftSwipe;
     
     // 使用字符串变量保存当前状态，避免多处引用写错
     private static readonly string IdleState = "Idle";
@@ -30,6 +31,8 @@ public class PlayerAttack : MonoBehaviour
     void Awake()
     {
         animator = GetComponent <Animator>();
+        leftSwipe.SetTime (0.0f, 0, 1);
+        leftSwipe.StartTrail(0.9f, 1.4f); 
     }
 
     void FixedUpdate()
@@ -73,6 +76,8 @@ public class PlayerAttack : MonoBehaviour
             Attack();
 			animator.SetBool("AttackKeyDown", false);
         }
+
+        leftSwipe.UpdateTrail (Time.time, Time.deltaTime);
     }
 
     void Attack()
