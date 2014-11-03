@@ -33,7 +33,8 @@ public class EnemyBeCatched : MonoBehaviour
                 messageBeSended = true;
                 player.SendMessage("EnemyBeCatched", gameObject);
             }
-        } else
+        }
+        else
         {
             messageBeSended = false;
         }

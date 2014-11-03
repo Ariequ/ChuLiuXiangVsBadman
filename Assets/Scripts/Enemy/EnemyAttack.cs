@@ -5,8 +5,6 @@ public class EnemyAttack : MonoBehaviour
 {
     public float timeBetweenAttacks = 5f;
     public int attackDamage = 10;
-
-
     Animator anim;
     GameObject player;
     PlayerHealth playerHealth;
@@ -15,19 +13,18 @@ public class EnemyAttack : MonoBehaviour
     float timer;
     EnemyMovement enemyMovement;
 
-
-    void Awake ()
+    void Awake()
     {
-        player = GameObject.Find ("Player");
-        playerHealth = player.GetComponent <PlayerHealth> ();
+        player = GameObject.Find("Player");
+        playerHealth = player.GetComponent <PlayerHealth>();
         enemyHealth = GetComponent<EnemyHealth>();
         enemyMovement = GetComponent<EnemyMovement>();
-        anim = GetComponent <Animator> ();
+        anim = GetComponent <Animator>();
     }
 
-    void OnTriggerEnter (Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject == player)
+        if (other.gameObject == player)
         {
             playerInRange = true;
             enemyMovement.navEnabled = false;
@@ -35,9 +32,9 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-    void OnTriggerExit (Collider other)
+    void OnTriggerExit(Collider other)
     {
-        if(other.gameObject == player)
+        if (other.gameObject == player)
         {
             playerInRange = false;
             enemyMovement.navEnabled = true;
@@ -45,18 +42,15 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-
-    void Update ()
+    void Update()
     {
         timer += Time.deltaTime;
 
-		AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
-
-        if (timer >= timeBetweenAttacks &&  enemyHealth.currentHealth > 0 && playerInRange)
+        if (timer >= timeBetweenAttacks && enemyHealth.currentHealth > 0 && playerInRange)
         {
-			Vector3 targetDirection = MathUtils.XZVector(player.transform.position) - MathUtils.XZVector(gameObject.transform.position);
-			Quaternion r = Quaternion.LookRotation(targetDirection);
-			transform.rotation = r;
+            Vector3 targetDirection = MathUtils.XZVector(player.transform.position) - MathUtils.XZVector(gameObject.transform.position);
+            Quaternion r = Quaternion.LookRotation(targetDirection);
+            transform.rotation = r;
             anim.SetBool("Attacking", true);
             timer = 0f;
         }
@@ -65,18 +59,17 @@ public class EnemyAttack : MonoBehaviour
             anim.SetBool("Attacking", false);
         }
 
-        if(playerHealth.currentHealth <= 0)
+        if (playerHealth.currentHealth <= 0)
         {
-            anim.SetTrigger ("PlayerDead");
+            anim.SetTrigger("PlayerDead");
         }
     }
 
-
-    public void EnemyAttackEvent ()    // called in animation clipe
+    public void EnemyAttackEvent()    // called in animation clipe
     {
-        if(playerHealth.currentHealth > 0  && playerInRange)
+        if (playerHealth.currentHealth > 0 && playerInRange)
         {
-            playerHealth.TakeDamage (attackDamage);
+            playerHealth.TakeDamage(attackDamage);
         }
     }
 }
