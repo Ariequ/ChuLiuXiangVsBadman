@@ -32,7 +32,7 @@ public class EnemyHealth : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        healthText.text = currentHealth.ToString();
+//        healthText.text = currentHealth.ToString();
 
         if (isSinking)
         {

@@ -18,6 +18,8 @@ public class GameOverManager : MonoBehaviour
 
     void Update()
     {
+//        Debug.Log(playerHealth.currentHealth);
+
         if (playerHealth.currentHealth <= 0)
         {
             anim.SetTrigger("GameOver");
