@@ -37,7 +37,9 @@ public class EnemyHealth : MonoBehaviour
         if (isSinking)
         {
             transform.Translate(-Vector3.up * sinkSpeed * Time.deltaTime);
-        } else if (isDead)
+        }
+        else
+        if (isDead)
         {
             animator.SetTrigger("Dead");
         }
@@ -64,9 +66,9 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Death();
-        } else
+        }
+        else
         {
-            Debug.Log("hurttype :" + attackType);
             animator.SetTrigger("HurtType_" + attackType);
         }
 
